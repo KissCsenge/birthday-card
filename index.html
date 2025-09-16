@@ -8,14 +8,14 @@
     body {
       margin: 0;
       padding: 0;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       background: linear-gradient(135deg, #ffbeb1, #ff2800, #a31a00);
       font-family: 'Comic Sans MS', cursive, sans-serif;
       overflow: hidden;
-      flex-direction: column;
     }
 
     .card {
@@ -104,6 +104,7 @@
     const music = document.getElementById("music");
     const btn = document.getElementById("playMusicBtn");
 
+    // Gombbal indítható zene
     btn.addEventListener("click", () => {
       music.play();
       btn.style.display = "none"; // eltüntetjük a gombot, ha elindult a zene
