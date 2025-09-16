@@ -15,6 +15,7 @@
       background: linear-gradient(135deg, #ffbeb1, #ff2800, #a31a00);
       font-family: 'Comic Sans MS', cursive, sans-serif;
       overflow: hidden;
+      flex-direction: column;
     }
 
     .card {
@@ -30,7 +31,7 @@
     }
 
     .card h1 {
-      color: #ff2800 ;
+      color: #ff2800;
       font-size: clamp(1.5rem, 5vw, 2.5rem);
       margin-bottom: 1rem;
     }
@@ -69,6 +70,22 @@
         transform: translateY(110vh) rotate(720deg);
       }
     }
+
+    #playMusicBtn {
+      margin-top: 2rem;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff2800;
+      color: white;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    #playMusicBtn:active {
+      transform: scale(0.95);
+    }
   </style>
 </head>
 <body>
@@ -77,29 +94,19 @@
     <p>Sok boldogságot, egészséget és vidám napokat kívánok!<br>Leclerc legyen veled!</p>
   </div>
 
-  <!-- Zene -->
-  <audio id="music" autoplay loop muted>
+  <button id="playMusicBtn">▶ Zene indítása</button>
+
+  <audio id="music" loop>
     <source src="monaco.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     const music = document.getElementById("music");
+    const btn = document.getElementById("playMusicBtn");
 
-    // Desktopon próbáljuk automatikusan elindítani
-    music.play().then(() => {
-      music.muted = false; 
-    }).catch(err => {
-      console.log("Autoplay blokkolva:", err);
-    });
-
-    // Mobilon az első koppintásra elindítjuk a zenét
-    let musicStarted = false;
-    window.addEventListener("click", () => {
-      if (!musicStarted) {
-        music.play().catch(() => {}); // próbáljuk elindítani
-        music.muted = false;
-        musicStarted = true;
-      }
+    btn.addEventListener("click", () => {
+      music.play();
+      btn.style.display = "none"; // eltüntetjük a gombot, ha elindult a zene
     });
 
     // Emoji + képek
