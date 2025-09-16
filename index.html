@@ -79,17 +79,25 @@
 
   <!-- Zene -->
   <audio id="music" autoplay loop muted>
-    <source src="monaco.mp3" type="audio/mpeg">
+    <source src="happy.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     const music = document.getElementById("music");
+
+    // Próbáljuk automatikusan elindítani
     music.play().then(() => {
-      // Ha a böngésző engedi, feloldjuk a némítást
-      music.muted = false;
+      music.muted = false; // ha engedi, feloldjuk a némítást
     }).catch(err => {
       console.log("Autoplay blokkolva:", err);
-      // Mobilon előfordulhat, hogy kattintás kell
+    });
+
+    // Bármilyen koppintásra (mobilon) elindítjuk a zenét
+    window.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        music.muted = false;
+      }
     });
 
     // Emoji + képek
