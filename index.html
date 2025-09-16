@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boldog születésnapot!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffbeb1, #ff2800, #a31a00);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      padding: 5vw;
+      text-align: center;
+      max-width: 90vw;
+      animation: pop 1.2s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card h1 {
+      color: #ff2800 ;
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .card p {
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      color: #333;
+      line-height: 1.4;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.2); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .confetti, .falling-img {
+      position: absolute;
+      top: -10px;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+
+    .confetti {
+      width: clamp(5px, 2vw, 10px);
+      height: clamp(5px, 2vw, 10px);
+    }
+
+    .falling-img {
+      width: clamp(20px, 8vw, 50px);
+      height: clamp(20px, 8vw, 50px);
+      object-fit: contain;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎉 Boldog 16. születésnapot! 🎂</h1>
+    <p>Sok boldogságot, egészséget és vidám napokat kívánok!<br>Leclerc legyen veled!</p>
+  </div>
+
+  <!-- Zene -->
+  <audio id="music" autoplay loop muted>
+    <source src="monaco.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const music = document.getElementById("music");
+    music.play().then(() => {
+      // Ha a böngésző engedi, feloldjuk a némítást
+      music.muted = false;
+    }).catch(err => {
+      console.log("Autoplay blokkolva:", err);
+      // Mobilon előfordulhat, hogy kattintás kell
+    });
+
+    // Emoji + képek
+    const images = ["🎂","🎁","CLM2024.png","CL2.png","🎈","✨"];
+
+    for (let i = 0; i < 50; i++) {
+      if (Math.random() < 0.7) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+        c.style.animationDuration = (2 + Math.random()*3) + "s";
+        document.body.appendChild(c);
+      } else {
+        let e;
+        let pick = images[Math.floor(Math.random()*images.length)];
+        if (pick.endsWith(".png") || pick.endsWith(".jpg")) {
+          e = document.createElement("img");
+          e.src = pick;
+          e.className = "falling-img";
+        } else {
+          e = document.createElement("div");
+          e.className = "falling-img";
+          e.textContent = pick;
+          e.style.fontSize = "2rem";
+        }
+        e.style.left = Math.random() * 100 + "vw";
+        e.style.animationDuration = (3 + Math.random()*3) + "s";
+        document.body.appendChild(e);
+      }
+    }
+  </script>
+</body>
+</html>
